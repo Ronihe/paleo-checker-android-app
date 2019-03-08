@@ -83,7 +83,9 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Paleo Checker</Text>
+        <Text style={{ fontSize: 35, fontWeight: 'bold', marginBottom: 10 }}>
+          Paleo Food Checker
+        </Text>
         <View style={{ flex: 0, flexDirection: 'row' }}>
           <Button onPress={this._launchCamera} title="Camera" />
           <View style={{ width: 30 }} />
@@ -94,7 +96,7 @@ export default class App extends React.Component {
         </Button> */}
         <Image
           source={{ uri: this.state.image }}
-          style={{ width: 400, height: 300, marginTop: 10, marginBottom: 20 }}
+          style={{ width: 400, height: 300, marginTop: 20, marginBottom: 20 }}
         />
 
         {paleoUI}
