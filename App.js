@@ -1,33 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
-// import ImagePicker from 'react-native-image-picker';
 
 import { ImagePicker, Permissions } from 'expo';
-
-// const options = {
-//   title: 'Select Avatar',
-//   customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-//   storageOptions: {
-//     skipBackup: true,
-//     path: 'images'
-//   }
-// };
-
-// Launch Camera:
-
-// Open Image Library:
-// function launchLib() {
-//   ImagePicker.launchImageLibrary(options, response => {
-//     // Same code as in above section!
-//   });
-// }
+import checkIngri from './APIhelper/checkIngri';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { image: undefined };
-    // this.method = this.method.bind(this);
-    // bind method here if necessary
   }
 
   _launchCamera = async () => {
@@ -47,32 +27,14 @@ export default class App extends React.Component {
     if (!result.cancelled) {
       this.setState({ image: result.base64 });
     }
+  };
 
-    // ImagePicker.launchCamera(options, response => {
-    //   // Same code as in above section!
-
-    //   console.log('Response = ', response);
-
-    //   if (response.didCancel) {
-    //     console.log('User cancelled image picker');
-    //   } else if (response.error) {
-    //     console.log('ImagePicker Error: ', response.error);
-    //   } else if (response.customButton) {
-    //     console.log('User tapped custom button: ', response.customButton);
-    //   } else {
-    //     const source = { uri: response.uri };
-
-    //     // You can also display the image using data:
-    //     // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-    //     this.setState({
-    //       avatarSource: source
-    //     });
-    //   }
-    // });
+  _handlePaleoChecking = async () => {
+    await checkIngri(this.state.image);
   };
 
   render() {
-    var base64Image = `data:image/png;base64,${this.state.image}`;
+    let base64Image = `data:image/png;base64,${this.state.image}`;
     return (
       <View style={styles.container}>
         <Text>Take a food pic and check if your dish is paleo </Text>
@@ -81,6 +43,11 @@ export default class App extends React.Component {
           {' '}
           Take a Pic{' '}
         </Button>
+        <Button onPress={this._handlePaleoChecking} title="picButton">
+          {' '}
+          Check Paleo{' '}
+        </Button>
+
         <Image source={{ uri: base64Image }} />
         {/* ingredient and paleo fact table */}
       </View>
