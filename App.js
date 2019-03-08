@@ -7,7 +7,7 @@ import checkIngri from './APIhelper/checkIngri';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { image: null, paleoFacts: {} };
+    this.state = { image: null, paleoFacts: null };
   }
 
   _launchCamera = async () => {
@@ -45,7 +45,7 @@ export default class App extends React.Component {
 
   async diaplayPaleoFacts(result) {
     if (!result.cancelled) {
-      this.setState(currSt => ({ ...currSt, image: result.uri }));
+      this.setState({ image: result.uri, paleoFacts: 'Loading' });
     }
 
     const paleoFactsObj = await checkIngri(result.base64);
@@ -59,23 +59,34 @@ export default class App extends React.Component {
     for (let ingr in this.state.paleoFacts) {
       dataList.push({ key: ingr });
     }
-    const paleoUI = (
-      <FlatList
-        data={dataList}
-        renderItem={({ item }) => (
-          <Text>
-            {item.key} {this.state.paleoFacts[item.key]}
-          </Text>
-        )}
-      />
-    );
+    let paleoUI =
+      this.state.paleoFacts === 'Loading' ? (
+        <Text style={{ fontSize: 30 }}>Loading...</Text>
+      ) : (
+        <FlatList
+          data={dataList}
+          renderItem={({ item }) => (
+            <Text
+              style={{
+                fontSize: 25,
+                color:
+                  this.state.paleoFacts[item.key] === 'Is Paleo'
+                    ? 'green'
+                    : 'red'
+              }}
+            >
+              {item.key} {this.state.paleoFacts[item.key]}
+            </Text>
+          )}
+        />
+      );
 
     return (
       <View style={styles.container}>
-        <Text>Take a food pic and check if your dish is paleo </Text>
-        {/* post your pic here */}
+        <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Paleo Checker</Text>
         <View style={{ flex: 0, flexDirection: 'row' }}>
           <Button onPress={this._launchCamera} title="Camera" />
+          <View style={{ width: 30 }} />
           <Button onPress={this._launchLib} title="Photos" />
         </View>
         {/* <Button onPress={this._handlePaleoChecking} title="picButton">
@@ -83,10 +94,9 @@ export default class App extends React.Component {
         </Button> */}
         <Image
           source={{ uri: this.state.image }}
-          style={{ width: 400, height: 300 }}
+          style={{ width: 400, height: 300, marginTop: 10, marginBottom: 20 }}
         />
 
-        <Text>This is Paleo Facts</Text>
         {paleoUI}
       </View>
     );
@@ -95,10 +105,9 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 80,
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'center'
   }
 });
