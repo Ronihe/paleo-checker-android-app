@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Paleo Food Checker",
-    "slug": "paleo-checker-android-app",
+    "slug": "paleo-checker",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -24,6 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Users can take a picture from camera or import a picture from their photo library. This app will test the ingredients in the pic and return the paleo facts to the users"
   }
 }
