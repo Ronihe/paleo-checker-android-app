@@ -21,6 +21,7 @@ import { ImagePicker, Permissions } from 'expo';
 //     // Same code as in above section!
 //   });
 // }
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,7 @@ export default class App extends React.Component {
 
   _launchCamera = async () => {
     //ask for permissons
-    const res = await Promise.all([
+    await Promise.all([
       Permissions.askAsync(Permissions.CAMERA),
       Permissions.askAsync(Permissions.CAMERA_ROLL)
     ]);
@@ -71,6 +72,7 @@ export default class App extends React.Component {
   };
 
   render() {
+    var base64Image = `data:image/png;base64,${this.state.image}`;
     return (
       <View style={styles.container}>
         <Text>Take a food pic and check if your dish is paleo </Text>
@@ -79,7 +81,7 @@ export default class App extends React.Component {
           {' '}
           Take a Pic{' '}
         </Button>
-        {/* <Image source={require(`./${this.state.image}`)} /> */}
+        <Image source={{ uri: base64Image }} />
         {/* ingredient and paleo fact table */}
       </View>
     );
