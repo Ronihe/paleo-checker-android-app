@@ -27,7 +27,6 @@ async function checkIngri(base64) {
     }
   }
 
-  console.warn(paleoList);
   if (paleoList.length === 0) {
     Alert.alert(
       'invalid pic',

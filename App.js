@@ -49,13 +49,11 @@ export default class App extends React.Component {
     }
 
     const paleoFactsObj = await checkIngri(result.base64);
-    //console.warn(result.base64, paleoFactsObj);
     this.setState(currSt => ({ ...currSt, paleoFacts: paleoFactsObj }));
   }
 
   render() {
     let dataList = [];
-    console.warn(this.state);
     for (let ingr in this.state.paleoFacts) {
       dataList.push({ key: ingr });
     }
