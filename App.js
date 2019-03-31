@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, Button, FlatList } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import checkIngri from './APIhelper/checkIngri';
 
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -47,8 +48,8 @@ export default class App extends React.Component {
     if (!result.cancelled) {
       this.setState({ image: result.uri, paleoFacts: 'Loading' });
     }
-
     const paleoFactsObj = await checkIngri(result.base64);
+    console.warn(paleoFactsObj);
     this.setState(currSt => ({ ...currSt, paleoFacts: paleoFactsObj }));
   }
 
@@ -89,14 +90,10 @@ export default class App extends React.Component {
           <View style={{ width: 30 }} />
           <Button onPress={this._launchLib} title="Photos" />
         </View>
-        {/* <Button onPress={this._handlePaleoChecking} title="picButton">
-          Check Paleo
-        </Button> */}
         <Image
           source={{ uri: this.state.image }}
           style={{ width: 400, height: 300, marginTop: 20, marginBottom: 20 }}
         />
-
         {paleoUI}
       </View>
     );

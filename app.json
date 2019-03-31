@@ -25,6 +25,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "com.ronihe.paleoChecker"
+    },
     "description": "Users can take a picture from camera or import a picture from their photo library. This app will test the ingredients in the pic and return the paleo facts to the users"
   }
 }
