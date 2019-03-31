@@ -49,7 +49,6 @@ export default class App extends React.Component {
       this.setState({ image: result.uri, paleoFacts: 'Loading' });
     }
     const paleoFactsObj = await checkIngri(result.base64);
-    console.warn(paleoFactsObj);
     this.setState(currSt => ({ ...currSt, paleoFacts: paleoFactsObj }));
   }
 

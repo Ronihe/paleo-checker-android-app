@@ -24,7 +24,6 @@ async function checkPaleo(Ingr) {
     ]
   });
   const healthLabels = nutrientRes.data.healthLabels;
-  console.warn(healthLabels);
   const message = healthLabels.includes('PALEO') ? 'Is Paleo' : 'Is not Paleo';
   return { [Ingr]: message || "cannot find this ingr's paleo fact" };
 }
